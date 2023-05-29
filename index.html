@@ -59,11 +59,19 @@
     async function predict() {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
-        for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
+        if (prediction[0].className == '노마스크' && prediction[0].probability.toFixed(2) > 0.60) {
+                window.location.href = "./노마스크.html";
+            } else if (prediction[1].className == '마스크' && prediction[1].probability.toFixed(2) > 0.60) {
+                window.location.href = "./마스크.html";
+            } else if (prediction[2].className == '가위' && prediction[2].probability.toFixed(2) > 0.60) {
+                window.location.href = "./가위.html";
+            } else if (prediction[3].className == '바위' && prediction[3].probability.toFixed(2) > 0.60) {
+                window.location.href = "./바위.html";
+            } else if (prediction[4].className == '보' && prediction[4].probability.toFixed(2) > 0.60) {
+                window.location.href = "./보.html";
+            } else {
+                window.location.href = "./fail.html";
+            }
     }
 </script>
 
